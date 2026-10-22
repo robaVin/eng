@@ -103,16 +103,38 @@ export default function Upload() {
             </div>
             <div>
               <label className="label">Pages (photos of the handwritten work)</label>
-              <input
-                type="file"
-                accept="image/*"
-                multiple
-                capture="environment"
-                className="text-sm"
-                onChange={(e) => addFiles(e.target.files)}
-              />
+              <div className="flex flex-wrap gap-2">
+                <label className="btn-ghost cursor-pointer">
+                  📷 Take photo
+                  <input
+                    type="file"
+                    accept="image/*"
+                    capture="environment"
+                    className="hidden"
+                    onChange={(e) => {
+                      addFiles(e.target.files);
+                      e.target.value = "";
+                    }}
+                  />
+                </label>
+                <label className="btn-ghost cursor-pointer">
+                  🖼️ Choose from device
+                  <input
+                    type="file"
+                    accept="image/*"
+                    multiple
+                    className="hidden"
+                    onChange={(e) => {
+                      addFiles(e.target.files);
+                      e.target.value = "";
+                    }}
+                  />
+                </label>
+              </div>
               <p className="mt-1 text-xs text-slate-400">
-                Add every page in order. On a phone this opens the camera; multi-page writing is supported.
+                Add every page in order. <strong>Take photo</strong> opens the camera (one page at a
+                time); <strong>Choose from device</strong> attaches existing pictures (select multiple
+                at once). Multi-page writing is supported.
               </p>
             </div>
           </div>
