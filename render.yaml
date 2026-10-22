@@ -1,0 +1,31 @@
+# Render blueprint — one Docker web service.
+# Deploy: push to GitHub, then on Render choose "New +" → "Blueprint" and pick this repo,
+# OR create a Web Service, Runtime = Docker. Set the secret env vars in the dashboard.
+services:
+  - type: web
+    name: eng-grading
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /api/health
+    autoDeploy: true
+    envVars:
+      - key: OPENAI_API_KEY        # set this in the Render dashboard (do NOT commit it)
+        sync: false
+      - key: TEACHER_PASSWORD      # the login password for the teacher
+        sync: false
+      - key: SECRET_KEY            # Render generates a strong random value
+        generateValue: true
+      - key: AI_PROVIDER
+        value: openai
+      - key: AI_MODEL              # change if your account uses a different vision model
+        value: gpt-4o
+      - key: COOKIE_SECURE         # Render serves HTTPS, so mark the session cookie Secure
+        value: "1"
+# NOTE: the free plan has an EPHEMERAL filesystem — the SQLite DB and uploaded images
+# reset on every redeploy/restart. For persistence, upgrade the plan and add a disk:
+#   disk:
+#     name: data
+#     mountPath: /var/data
+#     sizeGB: 1
+# then add an env var DATA_DIR=/var/data.

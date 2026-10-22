@@ -1,0 +1,31 @@
+# Secrets — never commit
+.env
+*.env
+!.env.example
+backend/.env
+
+# Real student work — do NOT publish (privacy). The app does not need these to run;
+# they are only used by the local smoke script. See test-data/README.md.
+test-data/handwriting-samples/*.jpg
+test-data/handwriting-samples/*.jpeg
+test-data/handwriting-samples/*.png
+
+# Python
+backend/.venv/
+__pycache__/
+*.pyc
+backend/data/
+
+# Node / frontend
+frontend/node_modules/
+frontend/dist/
+# tsc -b build artifacts
+frontend/vite.config.js
+frontend/vite.config.d.ts
+*.tsbuildinfo
+
+# OS / editors
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
