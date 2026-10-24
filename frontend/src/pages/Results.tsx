@@ -65,7 +65,7 @@ export default function Results() {
             </thead>
             <tbody className="divide-y divide-slate-100">
               {rows.map((s) => (
-                <tr key={s.id} className="hover:bg-slate-50">
+                  <tr key={s.id} onClick={() => navigate(`/review/${s.id}`)} className="cursor-pointer hover:bg-slate-50 active:bg-slate-100">
                   <td className="px-4 py-3 font-medium">{s.student_name}</td>
                   <td className="px-4 py-3 text-slate-600">{s.test_title ?? `Test #${s.test_id}`}</td>
                   <td className="px-4 py-3">
@@ -74,10 +74,9 @@ export default function Results() {
                   <td className="px-4 py-3">{s.final_score ?? "—"}</td>
                   <td className="px-4 py-3 text-slate-500">{new Date(s.created_at).toLocaleDateString()}</td>
                   <td className="px-4 py-3 text-right">
-                    <button onClick={() => navigate(`/review/${s.id}`)} className="btn-ghost mr-2">
-                      Open
+                    <button onClick={(e) => { e.stopPropagation(); navigate(`/review/${s.id}`); }} className="btn-ghost mr-2">
                     </button>
-                    <button onClick={() => remove(s.id)} className="btn-danger">
+                    <button onClick={(e) => { e.stopPropagation(); remove(s.id); }} className="btn-danger">
                       Delete
                     </button>
                   </td>
